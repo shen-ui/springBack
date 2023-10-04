@@ -2,12 +2,16 @@ package api.victorxie.blog.Blog;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import java.time.ZonedDateTime;
+import java.util.UUID;
+
 @Getter
 @Entity
 @Table
 public class Post {
+    @Setter
     @jakarta.persistence.Id
     @Id
     @SequenceGenerator(
@@ -20,27 +24,22 @@ public class Post {
             generator="post_sequence"
     )
     private Long id;
-    private String title;
-    private String entry;
-    private ZonedDateTime date;
+    @Setter @Getter private String title;
+    @Setter @Getter private String entry;
+    @Getter private ZonedDateTime date;
+    private UUID blog_id;
     public Post(){}
     public Post(Long id, String entry, String title){
         setId(id);
         setEntry(entry);
         setTitle(title);
         setDate();
+        setBlogID();
     }
-    public void setTitle(String title){
-        this.title = title;
-    }
-    public void setEntry(String entry){
-        this.entry = entry;
-    }
+
     public void setDate(){ this.date = ZonedDateTime.now(); }
-    public void setId(Long id) { this.id = id; }
-    public String getEntry(){ return (this.entry); }
-    public String getTitle(){ return (this.title); }
-    public ZonedDateTime getDate(){ return (this.date); }
+    public void setBlogID(){ this.blog_id = UUID.randomUUID(); }
+
     public void updateEntry(String entry, String title){
         if(!this.title.equals(title)) setTitle(title);
         if(!this.entry.equals(entry)) setEntry(entry);
