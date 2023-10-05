@@ -10,20 +10,21 @@ import org.springframework.data.annotation.Id;
 import java.util.UUID;
 
 public class Author {
+    @Setter
     @jakarta.persistence.Id
     @Id
     @SequenceGenerator(
-            name="user_sequence",
-            sequenceName= "user_sequence",
+            name="author_sequence",
+            sequenceName= "author_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator="user_sequence"
+            generator="author_sequence"
     )
-    private long id;
+    private Long id;
     @Setter @Getter private String author_name;
-    @Setter @Getter  private String username;
+    @Setter @Getter private String username;
     @Setter @Getter private String email;
     @Setter private String password;
     private UUID blog_id;
@@ -37,7 +38,6 @@ public class Author {
         setPassword(password);
         setBlogID();
     }
-
     public void setBlogID(){ this.blog_id = UUID.randomUUID(); }
 
     public String getBlog_id() { return(this.blog_id.toString()); }

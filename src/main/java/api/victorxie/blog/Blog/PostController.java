@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/${author}", method = RequestMethod.GET)
+@RequestMapping(path = "api/v1/posts", method = RequestMethod.GET)
 public class PostController {
     private final PostService postService;
 
