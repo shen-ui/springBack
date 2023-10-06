@@ -1,12 +1,12 @@
 package api.victorxie.blog.Blog;
 
+import api.victorxie.blog.Author.Author;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import java.time.ZonedDateTime;
 import java.util.UUID;
-
 @Getter
 @Entity
 @Table
@@ -27,18 +27,18 @@ public class Post {
     @Setter @Getter private String title;
     @Setter @Getter private String entry;
     @Getter private ZonedDateTime date;
-    private UUID blog_id;
+    @ManyToOne
+    @JoinColumn(name="author_id")
+    private Author author;
     public Post(){}
     public Post(Long id, String entry, String title){
         setId(id);
         setEntry(entry);
         setTitle(title);
         setDate();
-        setBlogID();
     }
 
     public void setDate(){ this.date = ZonedDateTime.now(); }
-    public void setBlogID(){ this.blog_id = UUID.randomUUID(); }
 
     public void updateEntry(String entry, String title){
         if(!this.title.equals(title)) setTitle(title);
