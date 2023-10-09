@@ -1,13 +1,15 @@
 package api.victorxie.blog.Author;
 
+import api.victorxie.blog.Author.AuthorRepository;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
 public class AuthorService {
-    public List<Author> getAuthors(){
-        return(List.of(
-                new Author("Shen Wang", "shenui", "mail@mail.com", "2018JFType!")
-        ));
+    private AuthorRepository authorRepository;
+    public List<Author> getAuthors(AuthorRepository authorRepository){
+        return(authorRepository.findAll());
+
+
     }
 }

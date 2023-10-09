@@ -3,8 +3,14 @@ import api.victorxie.blog.Blog.Post;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.jpa.repository.Query;
+
 import java.util.List;
+
+import static jakarta.persistence.FetchType.LAZY;
+
 @Getter
 @Entity
 @Table
@@ -28,12 +34,18 @@ public class Author {
     @Setter private String password;
     @OneToMany(mappedBy = "author")
     @Setter @Getter private List<Post> blog;
+    @Transient
+    private Integer post_count;
     public Author(){}
     public Author(String author_name, String username, String email, String password) {
         setAuthor_name(author_name);
         setUsername(username);
         setEmail(email);
         setPassword(password);
+    }
+
+    public Integer getPost_count() {
+        return(this.blog.size());
     }
 
     public void updateAuthor(String username, String password, String email){

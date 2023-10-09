@@ -12,15 +12,18 @@ import java.util.Optional;
 @RequestMapping(path = "api/v1")
 public class AuthorController {
     private final AuthorService authorService;
+    private final AuthorRepository authorRepository;
     @Autowired
-    public AuthorController(AuthorService authorService) { this.authorService = authorService; }
+    public AuthorController(AuthorService authorService, AuthorRepository authorRepository) { this.authorService = authorService;
+        this.authorRepository = authorRepository;
+    }
     @GetMapping( path = "/authors")
     public List<Author> getAuthors(){
-        return authorService.getAuthors();
+        return authorService.getAuthors(authorRepository);
     }
     @GetMapping( path = "/authors/{username}")
     public ResponseEntity<Author> getAuthors(@PathVariable String username){
-        List<Author> authors = authorService.getAuthors();
+        List<Author> authors = authorService.getAuthors(authorRepository);
         Optional<Author> authorOptional = authors.stream().filter(a -> a.getUsername().equals(username)).findFirst();
         return authorOptional.map(author -> new ResponseEntity<>(author, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
