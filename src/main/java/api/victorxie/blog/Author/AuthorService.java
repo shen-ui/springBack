@@ -1,5 +1,6 @@
 package api.victorxie.blog.Author;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +33,30 @@ public class AuthorService {
         }
         authorRepository.deleteById(author_id);
     }
+    @Transactional
+    public void updateAuthor(Long id, String name, String email, String username, String password){
+        Author author = authorRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("Author with id " + id + " does not exist."));
 
+        if(name != null &&
+                !name.isEmpty() &&
+                !name.equals(author.getAuthor_name())){
+            author.setAuthor_name(name);
+        }
+        if(email != null &&
+                !email.isEmpty() &&
+                !email.equals(author.getEmail())){
+            author.setEmail(email);
+        }
+        if(username != null &&
+                !username.isEmpty() &&
+                !username.equals(author.getUsername())){
+            author.setUsername(username);
+        }
+        if(password != null &&
+                !password.isEmpty() &&
+                !password.equals(author.getPassword())){
+            author.setPassword(password);
+        }
+    }
 }

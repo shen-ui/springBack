@@ -1,5 +1,6 @@
 package api.victorxie.blog.Author;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,4 +39,14 @@ public class AuthorController {
     public void deleteAuthor(@PathVariable ("author_id") Long id) {
         authorService.removeAuthor(id);
     }
+
+    @PutMapping(path = "/update/{author_id}")
+    public void updateAuthor(@PathVariable("author_id") Long id,
+                             @RequestParam(required = false) String name,
+                             @RequestParam(required = false) String email,
+                             @RequestParam(required = false) String username,
+                             @RequestParam(required = false) String password){
+        authorService.updateAuthor(id, name, email, username, password);
+    }
+
 }
