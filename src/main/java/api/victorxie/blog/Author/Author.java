@@ -27,7 +27,7 @@ public class Author {
             strategy = GenerationType.SEQUENCE,
             generator="author_sequence"
     )
-    private Long id;
+    @Getter private Long id;
     @Setter @Getter private String author_name;
     @Setter @Getter private String username;
     @Setter @Getter private String email;
