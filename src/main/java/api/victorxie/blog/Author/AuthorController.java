@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @RestController: Makes endpoints restful with @GetMapping/@PutMapping/@PostMapping/@DeleteMapping
+ */
 @RestController
 @RequestMapping(path = "api/v1")
 public class AuthorController {
