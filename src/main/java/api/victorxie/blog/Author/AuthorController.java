@@ -1,6 +1,6 @@
 package api.victorxie.blog.Author;
 
-import jakarta.transaction.Transactional;
+import api.victorxie.blog.Blog.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,13 +24,23 @@ public class AuthorController {
     public List<Author> getAuthors(){
         return authorService.getAuthors();
     }
-    @GetMapping( path = "/authors/{username}")
+    @GetMapping( path = "/author/{username}")
     public ResponseEntity<Author> getAuthors(@PathVariable String username){
         List<Author> authors = authorService.getAuthors();
         Optional<Author> authorOptional = authors.stream().filter(a -> a.getUsername().equals(username)).findFirst();
         return authorOptional.map(author ->
                 new ResponseEntity<>(author, HttpStatus.OK)).orElseGet(() ->
                 new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+    }
+    @GetMapping( path = "/author/{username}/posts")
+    public ResponseEntity<List<Post>> getAuthorPosts(@PathVariable String username) {
+        ResponseEntity<Author> authorResponse = getAuthors(username);
+        if(!authorResponse.hasBody() || authorResponse.getStatusCode().is4xxClientError()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        Author author = authorResponse.getBody();
+        assert author != null;
+        return new ResponseEntity<>(author.getBlog(), HttpStatus.OK);
     }
     @PostMapping(path = "/new")
     // Request body takes a json blob

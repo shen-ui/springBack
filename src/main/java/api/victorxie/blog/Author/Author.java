@@ -3,13 +3,10 @@ import api.victorxie.blog.Blog.Post;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.LazyCollection;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.jpa.repository.Query;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import static jakarta.persistence.FetchType.LAZY;
 
 @Getter
 @Entity
@@ -47,7 +44,6 @@ public class Author {
     public Integer getPost_count() {
         return(this.blog.size());
     }
-
     public void updateAuthor(String username, String password, String email){
         if(!this.username.equals(username)) setUsername(username);
         if(!this.password.equals(password)) setPassword(password);

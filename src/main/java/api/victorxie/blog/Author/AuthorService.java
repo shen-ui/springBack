@@ -1,5 +1,6 @@
 package api.victorxie.blog.Author;
 
+import api.victorxie.blog.Blog.Post;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,14 @@ public class AuthorService {
     public List<Author> getAuthors(){
         return(authorRepository.findAll());
     }
+
+    public List<Post> getAuthorPosts(Author author) {
+        Optional<Author> authorOptional = authorRepository.findAuthorByUsername(author.getUsername());
+        if(authorOptional.isEmpty()){
+            throw new IllegalStateException("Author does not exist.");
+        }
+        return (authorOptional.get().getBlog());
+    };
     public void addNewAuthor(Author author){
         Optional<Author> authorOptional = authorRepository.findAuthorByEmail(author.getEmail());
         if(authorOptional.isPresent()){
@@ -33,6 +42,7 @@ public class AuthorService {
         }
         authorRepository.deleteById(author_id);
     }
+
     @Transactional
     public void updateAuthor(Long id, String name, String email, String username, String password){
         Author author = authorRepository.findById(id)
