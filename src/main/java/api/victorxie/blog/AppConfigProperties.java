@@ -8,6 +8,7 @@ public record AppConfigProperties (
         String rdsURL,
         String iamUser,
         String iamPass,
-        Integer rdsPort,
+        String oAuthClientId,
+        String oAuthClientSecret,
         String schemaName){
 }

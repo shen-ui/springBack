@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class OAuthController {
-    @GetMapping( path = "api/v1/oauth")
+    @GetMapping( path = "/")
     public String login(){
         return ("login unsecure");
     }
-    @GetMapping( path = "api/v1/oauth/secure")
+    @GetMapping( path = "/secured")
     public String loginSecure(){
         return("login secure");
     }

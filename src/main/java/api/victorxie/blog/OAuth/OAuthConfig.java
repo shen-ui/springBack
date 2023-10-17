@@ -1,4 +1,4 @@
-package api.victorxie.blog.OAuth.OAuthConfig;
+package api.victorxie.blog.OAuth;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +18,8 @@ public class OAuthConfig {
                     auth.requestMatchers("/").permitAll();
                     auth.anyRequest().authenticated();
                 })
+                .oauth2Login(withDefaults())
                 .formLogin(withDefaults())
-                .formLogin(withDefaults())
-                .build();
+                .getOrBuild();
     }
 }
