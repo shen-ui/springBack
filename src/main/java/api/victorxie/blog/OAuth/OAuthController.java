@@ -1,16 +1,17 @@
 package api.victorxie.blog.OAuth;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@RestController
-public class OAuthController {
-    @GetMapping( path = "/")
-    public String login(){
-        return ("login unsecure");
+@Configuration
+public class OAuthController implements WebMvcConfigurer {
+
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/home").setViewName("home");
+        registry.addViewController("/").setViewName("home");
+        registry.addViewController("/hello").setViewName("hello");
+        registry.addViewController("/login").setViewName("login");
     }
-    @GetMapping( path = "/secured")
-    public String loginSecure(){
-        return("login secure");
-    }
+
 }
