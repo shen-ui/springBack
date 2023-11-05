@@ -20,6 +20,7 @@ public class AuthorController {
     public AuthorController(AuthorService authorService) {
         this.authorService = authorService;
     }
+
     @GetMapping( path = "/authors")
     public List<Author> getAuthors(){
         return authorService.getAuthors();

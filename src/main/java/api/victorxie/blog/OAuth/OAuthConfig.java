@@ -22,13 +22,15 @@ public class OAuthConfig {
                     .requestMatchers("/","/home").permitAll()
                     .anyRequest().authenticated()
                 )
-                // login doesn't wwant to load page
                 .formLogin((form) -> form
                     .loginPage("/login")
                     .permitAll()
                 )
                 .logout((logout) -> logout.permitAll())
-                .oauth2Login(withDefaults())
+                .oauth2Login(oauth2Login -> oauth2Login
+                        .loginPage("/login")
+                        //.authorizedClientService()
+                )
                 .getOrBuild();
     }
     // Demo purposes change later on production
