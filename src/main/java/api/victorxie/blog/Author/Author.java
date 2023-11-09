@@ -31,14 +31,16 @@ public class Author {
     @Setter private String password;
     @OneToMany(mappedBy = "author")
     @Setter @Getter private List<Post> blog;
+    @Setter @Getter private String role;
     @Transient
     private Integer post_count;
     public Author(){}
-    public Author(String author_name, String username, String email, String password) {
+    public Author(String author_name, String username, String email, String password, String role) {
         setAuthor_name(author_name);
         setUsername(username);
         setEmail(email);
         setPassword(password);
+        setRole(role);
     }
 
     public Integer getPost_count() {
@@ -52,9 +54,11 @@ public class Author {
     @Override
     public String toString(){
         return(
-                "username: " + getUsername() + "\n" +
-                "email: " + getEmail() + "\n" +
-                "name: " + getAuthor_name() + "\n"
+                "username: "   + getUsername()    + "\n" +
+                "email: "      + getEmail()       + "\n" +
+                "name: "       + getAuthor_name() + "\n" +
+                "role: "       + getRole()        + "\n" +
+                "post count: " + getPost_count()
         );
     }
 }

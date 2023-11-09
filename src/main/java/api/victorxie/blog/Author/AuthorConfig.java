@@ -11,8 +11,8 @@ public class AuthorConfig {
     @Bean
     CommandLineRunner commandLineRunner(AuthorRepository authorRepository) {
         return args -> {
-            Author shen = new Author("shen wang", "shenui", "email1@email.com", "password1");
-            Author vic = new Author("victor xie", "xievictor", "email2@email.com", "password2");
+            Author shen = new Author("shen wang", "shenui", "email1@email.com", "password1", "Admin");
+            Author vic = new Author("victor xie", "xievictor", "email2@email.com", "password2", "User");
             authorRepository.saveAll(
                     List.of(shen, vic)
             );
